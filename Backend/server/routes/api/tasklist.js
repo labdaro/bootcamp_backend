@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
   const tasklist = await loadTasksCollection();
   await tasklist.insertOne({
-    task: req.body.text,
+    task: req.body.task,
     dateCreateed: new Date()
   });
   res.status(201).send();
