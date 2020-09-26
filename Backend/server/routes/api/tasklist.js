@@ -1,8 +1,10 @@
 const express = require('express');
 const mongodb = require('mongodb');
-
+const bodyParser = require('body-parser')
 const router = express.Router();
-
+const app = express()
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 // Get Posts
 router.get('/', async (req, res) => {
   const tasklist = await loadTasksCollection();
@@ -10,11 +12,11 @@ router.get('/', async (req, res) => {
 });
 
 // Add Post
-router.post('/', async (req, res) => {
+router.post('/', async(req, res) => {
   const tasklist = await loadTasksCollection();
   await tasklist.insertOne({
     task: req.body.task,
-    dateCreateed: new Date()
+    dateCreateed: new Date() 
   });
   res.status(201).send();
 });
